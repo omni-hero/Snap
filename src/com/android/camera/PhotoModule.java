@@ -613,9 +613,6 @@ public class PhotoModule
 
         mUI = new PhotoUI(activity, this, parent);
 
-        // Power shutter
-        mActivity.initPowerShutter(mPreferences);
-
         if (mOpenCameraThread == null) {
             mOpenCameraThread = new OpenCameraThread();
             mOpenCameraThread.start();
@@ -2917,9 +2914,6 @@ public class PhotoModule
         // (e.g. onResume -> onPause -> onResume).
         stopPreview();
 
-        // Load the power shutter
-        mActivity.initPowerShutter(mPreferences);
-
         mNamedImages = null;
 
         if (mLocationManager != null) mLocationManager.recordLocation(false);
@@ -5131,9 +5125,6 @@ public class PhotoModule
          * executed till now, then schedule these functionality for
          * later by posting a message to the handler */
         if (mUI.mMenuInitialized) {
-            setCameraParametersWhenIdle(UPDATE_PARAM_PREFERENCE);
-            mActivity.initPowerShutter(mPreferences);
-        } else {
             mHandler.sendEmptyMessage(SET_PHOTO_UI_PARAMS);
         }
         resizeForPreviewAspectRatio();
